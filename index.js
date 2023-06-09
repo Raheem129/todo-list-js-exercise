@@ -1,31 +1,26 @@
-// Arrays to keep track of each task's state
-const taskTitles = [];
-const taskComplete = [];
+function newTask(title, description) {
+  const task = {
+    title: title, // Title of the task
+    description: description, // Description of the task
+    complete: false, // Indicates whether the task has been completed or not
 
-// Create a new task by adding to the arrays
-// A new task will be created as incomplete
-function newTask(title) {
-  taskTitles.push(title);
-  taskComplete.push(false);
+    logState: function() {
+      console.log(`${this.title} has${this.complete ? " " : " not "}been completed`); // Logs the current state of the task
+    },
+
+    markCompleted: function() {
+      this.complete = true; // Marks the task as completed
+    }
+  };
+  return task; // Returns the created task object
 }
 
-// Mark a task as complete by setting the task's status in the `taskComplete` array to `true`
-function completeTask(taskIndex) {
-  taskComplete[taskIndex] = true;
-}
+// DRIVER CODE CHANGES BELOW
 
-// Print the state of a task to the console in a nice readable way
-function logTaskState(taskIndex) {
-  const title = taskTitles[taskIndex];
-  const complete = taskComplete[taskIndex];
-  console.log(`${title} has${complete ? " " : " not "}been completed`);
-}
+const task1 = newTask("Clean Cat Litter", "Take all the 💩 out of the litter box"); // Creates a new task object with title and description
+const task2 = newTask("Do Laundry", "😨"); // Creates another task object with a different title and description
+const tasks = [task1, task2]; // Stores the tasks in an array
 
-// DRIVER CODE BELOW
-
-newTask("Clean Cat Litter"); // task 0
-newTask("Do Laundry"); // task 1
-
-logTaskState(0); // Clean Cat Litter has not been completed
-completeTask(0);
-logTaskState(0); // Clean Cat Litter has been completed
+task1.logState(); // Logs the initial state of task1 (not completed)
+task1.markCompleted(); // Marks task1 as completed
+task1.logState(); // Logs the updated state of task1 (completed)
